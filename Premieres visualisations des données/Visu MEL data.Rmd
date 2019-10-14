@@ -1,0 +1,17 @@
+---
+title: "Projet"
+author: "Alexandre Verept"
+date: "14/10/2019"
+output: html_document
+---
+# Visualiser le format des données disponilbes sur le site la MEL
+## Importer les données
+```{r}
+data=read.csv("https://opendata.lillemetropole.fr/explore/dataset/indice-qualite-de-lair/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true", head=TRUE, sep=";")
+```
+
+## Afficher quelques données
+```{r}
+head(data)
+```
+
