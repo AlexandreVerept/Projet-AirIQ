@@ -8,5 +8,5 @@ def extractCSV(CSVName,listOfColumns,newCSVName):
     df.to_csv(newCSVName+".csv", index=False)
 
 if __name__ == '__main__':
-    myList = ["valeur","type_zone"]
+    myList = ["date_ech","valeur"]
     extractCSV("indice-qualite-de-lair.csv",myList,"Dataset")

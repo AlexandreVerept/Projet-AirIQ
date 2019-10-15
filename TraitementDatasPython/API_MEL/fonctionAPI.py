@@ -4,7 +4,7 @@ Ce programme sert à aller récupérer les données de qualité de l'air sur l'A
 
 import urllib.request
 import json
-import csv
+#import csv
 
 DEFAULTREQUEST = "https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=indice-qualite-de-lair&rows=500"
 
