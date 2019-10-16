@@ -1,12 +1,13 @@
 """
-Ce programme sert à aller récupérer les données de qualité de l'air sur l'API de la MEL
+Ce programme sert à aller récupérer les données de qualité de l'air 
+sur l'API de la MEL et créer un CSV avec ce qui est récupéré
 """
 
 import urllib.request
 import json
-#import csv
+import pandas as pd
 
-DEFAULTREQUEST = "https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=indice-qualite-de-lair&rows=500"
+DEFAULTREQUEST = "https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=indice-qualite-de-lair&rows=5000"
 
 def getRequest(request=DEFAULTREQUEST):
     """
@@ -20,7 +21,7 @@ def getRequest(request=DEFAULTREQUEST):
 def treatRequest(data):
     """
     reçoit: données extraites d'une requete à l'API (dict)
-    retourne: données qui nous interessent* (dict) 
+    retourne: données qui nous interessent* (data frame) 
     
     *à savoir: date_ech, valeur
     """
@@ -28,13 +29,16 @@ def treatRequest(data):
     listeDesFields = []
     for r in listeDesRecords: #on récupère chaque fields de données
         listeDesFields.append(r['fields']) 
-        
-    dico
+    dico = []
     for k in listeDesFields:
-        dico.append({k['date_ech'],k['valeur']})
-    return(dico)
+        dico.append({'date' : k['date_ech'],'value' : k['valeur']})
+    df = pd.DataFrame(dico)
+    return(df)    
+   
  
 if __name__ == '__main__':
     data = getRequest()
-    dico = treatRequest(data)    
+    df = treatRequest(data)
+    df.to_csv("data_MEL_API.csv", index=False,sep=';')
+    
    
