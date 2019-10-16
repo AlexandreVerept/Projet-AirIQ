@@ -31,7 +31,7 @@ def treatRequest(data):
         listeDesFields.append(r['fields']) 
     dico = []
     for k in listeDesFields:
-        dico.append({'date' : k['date_ech'],'value' : k['valeur']})
+        dico.append({'date' : k['date_ech'][0:10],'value' : k['valeur']})
     df = pd.DataFrame(dico)
     return(df)    
    
