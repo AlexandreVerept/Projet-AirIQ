@@ -33,5 +33,5 @@ for m in range(0,len(dfMel)):
                 print("Error:",a.date())
 print(len(listeDataJours))
 df = pd.DataFrame(listeDataJours) 
-df.to_csv("DataParJour.csv", index=False,sep=';')
+df.to_csv("Dataset.csv", index=False,sep=';')
     
