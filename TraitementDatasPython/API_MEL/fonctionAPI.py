@@ -7,7 +7,7 @@ import urllib.request
 import json
 import pandas as pd
 
-DEFAULTREQUEST = "https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=indice-qualite-de-lair&rows=5000"
+DEFAULTREQUEST = "https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=indice-qualite-de-lair&sort=date_ech&rows=5000"
 
 def getRequest(request=DEFAULTREQUEST):
     """
@@ -33,6 +33,7 @@ def treatRequest(data):
     for k in listeDesFields:
         dico.append({'date' : k['date_ech'][0:10],'value' : k['valeur']})
     df = pd.DataFrame(dico)
+    print(df)
     return(df)    
    
  

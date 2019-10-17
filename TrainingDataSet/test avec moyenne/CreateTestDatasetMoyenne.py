@@ -11,7 +11,7 @@ dfRuche = pd.read_csv("DatasetRuche.csv", header=0, delimiter=';')
 
 listeDataJours = []
 for m in range(0,len(dfMel)): 
-    moyTempExt, moyHygroExt, moyPanneauS, moyBatterie = 0,0,0,0
+    moyTempExt, moyHygroExt, moyPanneauS, moyBatterie, effectif = 0,0,0,0,0
     b = dfMel.at[m,"date"]
     b = datetime.datetime.strptime(b, '%Y-%m-%d')
     b = b.date()
@@ -20,17 +20,18 @@ for m in range(0,len(dfMel)):
         a = dfRuche.at[r,"time"]
         a = datetime.datetime.strptime(a,'%Y-%m-%d %H:%M:%S')
         if b == a.date():
-            try :
-                listeDataJours.append({"Date" : b,
-                                       "Heure" : a.time(),
-                                       "TempExt": dfRuche.at[r,"TempExt"], 
-                                       "HygroExt" : dfRuche.at[r,"HygroExt"],
-                                       "PanneauS" : dfRuche.at[r,"PanneauS"],
-                                       "Batterie" : dfRuche.at[r,"Batterie"],
-                                       "IQ" : dfMel.at[m,"value"],
-                                       "IQ_j+1" : dfMel.at[m-1,"value"]})
-            except:
-                print("Error:",a.date())
+            moyTempExt+= dfRuche.at[r,"TempExt"]
+            moyHygroExt+= dfRuche.at[r,"HygroExt"]
+            moyPanneauS+= dfRuche.at[r,"PanneauS"]
+            moyBatterie+= dfRuche.at[r,"Batterie"]
+            effectif +=1
+    if effectif != 0:
+        listeDataJours.append({"Date" : b,
+                               "TempExt": moyTempExt/effectif, 
+                               "HygroExt" : moyHygroExt/effectif,
+                               "PanneauS" : moyPanneauS/effectif,
+                               "Batterie" : moyBatterie/effectif,
+                               "IQ" : dfMel.at[m,"value"]})
 print(len(listeDataJours))
 df = pd.DataFrame(listeDataJours) 
 df.to_csv("DataParJour.csv", index=False,sep=';')
