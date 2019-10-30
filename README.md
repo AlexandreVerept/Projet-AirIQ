@@ -20,13 +20,13 @@ Please take note that some codes/ressources are in French in this project
 
 - In "First_visualisation" you can see some of our preliminary observations with R, such as the evolution air quality index in Lille, or the temperature measured on the roof of the school:
 
-![](First_visualization/Visualisation_files/figure-gfm/unnamed-chunk-6-1.png)
+<img src="First_visualization/Visualisation_files/figure-gfm/unnamed-chunk-6-1.png" alt="r" style="zoom:75%;" />
 
-![](First_visualization/Visualisation_files/figure-gfm/unnamed-chunk-10-1.png)
+<img src="First_visualization/Visualisation_files/figure-gfm/unnamed-chunk-10-1.png" alt="r" style="zoom:75%;" />
 
 - In "ExtractingDatas" are all our scripts to get our CSV files online or from an API, and then shape them as we want
 
-  ![](ExtractingDatas/TreatDownloadedCSV/illustartionRuche.PNG)
+  <img src="ExtractingDatas/TreatDownloadedCSV/illustrationRuche.PNG" alt="r" style="zoom:50%;" />
 
 - In "TrainingDataSet" are our attempts to train an AI on those datas.
 

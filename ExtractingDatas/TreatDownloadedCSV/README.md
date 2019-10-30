@@ -12,8 +12,8 @@ Our script CreateDatasetCSV.py select only what we want in both those ressources
 
 - DatasetMEL.csv : with only the air quality index for each day
 
-  ![](illustartionMel.PNG)
+  <img src="illustrationMel.PNG" style="zoom:50%;" />
 
 - DatasetRuche.csv : contains the temperature, humidity, sun exposure, the level of the battery (may be releavant to take into account the sun exposure) and the timestamp
 
-  ![](illustartionRuche.PNG)
+  <img src="illustrationRuche.PNG" style="zoom:50%;" />
