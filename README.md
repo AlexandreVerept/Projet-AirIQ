@@ -26,5 +26,7 @@ Please take note that some codes/ressources are in French in this project
 
 - In "ExtractingDatas" are all our scripts to get our CSV files online or from an API, and then shape them as we want
 
+  ![](ExtractingDatas/TreatDownloadedCSV/illustartionRuche.PNG)
+
 - In "TrainingDataSet" are our attempts to train an AI on those datas.
 

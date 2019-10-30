@@ -11,4 +11,9 @@ Here are the different CSV files we can download online:
 Our script CreateDatasetCSV.py select only what we want in both those ressources and gives us 2 datasets:
 
 - DatasetMEL.csv : with only the air quality index for each day
-- DatasetRuche.csv : contains the temperature, humidity, sun exposure, the level of the battery (may be releavant to take into account the sun exposure) and the timestampT
+
+  ![](illustartionMel.PNG)
+
+- DatasetRuche.csv : contains the temperature, humidity, sun exposure, the level of the battery (may be releavant to take into account the sun exposure) and the timestamp
+
+  ![](illustartionRuche.PNG)
