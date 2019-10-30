@@ -12,7 +12,7 @@ def extractCSV(CSVName,newCSVName,listOfColumns):
     Select data we need in a CSV and return an other CSV file
     """
     df = pd.read_csv(CSVName+".csv", header=0, delimiter=';')[listOfColumns]
-    df.to_csv(newCSVName+".csv", index=False)
+    df.to_csv(newCSVName+".csv", index=False,sep=';')
     
 def addHeaderCSV(CSVName,newCSVName,header = DEFAULT_RUCHE_HEADER):
     """
