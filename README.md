@@ -18,11 +18,15 @@ Please take note that some codes/ressources are in French in this project
 
 ## This repository
 
-- In "First_visualisation" you can see some of our preliminary observations with R, such as the evolution air quality index in Lille, or the temperature measured on the roof of the school:
+- In "First_visualisation" you can see some of our preliminary observations with R, such as the evolution air quality index in Lille, or the temperature measured on the roof of the school. 
 
-<img src="First_visualization/Visualisation_files/figure-gfm/unnamed-chunk-6-1.png" alt="r" style="zoom:75%;" />
+- We have created a dynamic display of those data online, in a way you can see them and interact:
 
-<img src="First_visualization/Visualisation_files/figure-gfm/unnamed-chunk-10-1.png" alt="r" style="zoom:75%;" />
+  https://alexandre-verept.shinyapps.io/AirIQ_Showcase/
+
+  
+
+<img src="First_visualization/Visualisation_files/figure-gfm/demoOnline.png" alt="r" style="zoom:75%;" />
 
 - In "ExtractingDatas" are all our scripts to get our CSV files online or from an API, and then shape them as we want
 

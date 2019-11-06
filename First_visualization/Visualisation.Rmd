@@ -1,5 +1,5 @@
 ---
-title: "README"
+title: "AirIQ"
 author: "Alexandre Verept"
 date: "14/10/2019"
 output: rmarkdown::github_document
