@@ -27,6 +27,14 @@ head(data)
 ```
 
 Now we only have the data we want, so we will visualize it to have a better understanding (even if it's very basics datas)
+```{r}
+data$date_ech <- as.Date(data$date_ech, "%Y-%m-%d")
+head(data)
+
+dateRowData = data[data$date_ech >= "1970-01-01" & data$date_ech <= Sys.Date()+1,]
+
+head(dateRowData)
+```
 
 ```{r}
 library(ggplot2)

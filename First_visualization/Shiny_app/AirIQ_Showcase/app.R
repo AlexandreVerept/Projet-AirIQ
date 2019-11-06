@@ -1,5 +1,6 @@
 library(shiny)
 library(ggplot2)
+library(gridExtra)
 #Import datas from lille
 data=read.csv("https://opendata.lillemetropole.fr/explore/dataset/indice-qualite-de-lair/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true", head=TRUE, sep=";")
 keeps = c("date_ech", "valeur")
@@ -12,22 +13,6 @@ data2 = data2[keeps2]
 data2$time <- as.POSIXct(data2$time)
 
 ui <- navbarPage("AirIQ - First visualization of the datas",
-    #First page
-    tabPanel("Air index histogram",
-        sidebarLayout(
-            sidebarPanel(
-                sliderInput("bins",
-                            "Number of bins:",
-                            min = 1,
-                            max = 10,
-                            value = c(0,10))
-                ),
-            
-            mainPanel(
-                plotOutput("histoPlot")
-            )
-        )
-    ),
     # Second page
     tabPanel("Air index quality",
         sidebarLayout(
@@ -89,21 +74,23 @@ ui <- navbarPage("AirIQ - First visualization of the datas",
 # Define server logic required to draw a histogram
 server <- function(input, output) {
     
-    output$histoPlot <- renderPlot({
-        qplot(data$valeur,
+    output$dateRangeIQ <- renderPlot({
+        p1=ggplot(data = data, aes(x = date_ech, y = valeur))+
+            geom_line(color = "orange", size = 0.5)+ xlim(input$dateRangeIQ)
+        
+        date = data[data$date_ech >= input$dateRangeIQ[1] & data$date_ech <= input$dateRangeIQ[2],]
+
+        p2=qplot(date$valeur,
               geom="histogram",
-              breaks=seq(input$bins[1], input$bins[2], by = 1),
+              breaks=seq(0, 10, by = 1),
               binwidth = 1,
               fill=I("orange"), 
               col=I("red"),
               main = "Histogram of IQ values", 
               xlab = "Index",
               xlim=c(1,10))
-    })
-    
-    output$dateRangeIQ <- renderPlot({
-        ggplot(data = data, aes(x = date_ech, y = valeur))+
-            geom_line(color = "orange", size = 0.5)+ xlim(input$dateRangeIQ)
+        
+        grid.arrange(p1,p2, ncol=1)
     })
     
     output$dateRangeTemp <- renderPlot({
