@@ -5,8 +5,8 @@ account: alexandre-verept
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1418191
-bundleId: 2567877
+bundleId: 2567942
 url: https://alexandre-verept.shinyapps.io/AirIQ_Showcase/
-when: 1573031918.60869
+when: 1573034128.11745
 asMultiple: FALSE
 asStatic: FALSE
