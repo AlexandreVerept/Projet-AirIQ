@@ -94,12 +94,12 @@ features.index = df['Date']
 print(features.head())
 features.plot(subplots=True)
 
-# Normaliser les datas ? On ne l'a pas fait ici
+# Normaliser les datas ? 
 
 dataset = features.values
-#data_mean = dataset[:TRAIN_SPLIT].mean(axis=0)
-#data_std = dataset[:TRAIN_SPLIT].std(axis=0)
-#dataset = (dataset-data_mean)/data_std
+data_mean = dataset[:TRAIN_SPLIT].mean(axis=0)
+data_std = dataset[:TRAIN_SPLIT].std(axis=0)
+dataset = (dataset-data_mean)/data_std
 
 """
 ======= Début du multi step model ======
