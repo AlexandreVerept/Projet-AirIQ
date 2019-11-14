@@ -2,6 +2,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import tensorflow as tf
+from tensorflow import keras
+import time
+
+#=======================Parameters================================
+LOAD = True # load model or create one
+MODEL_TO_LOAD_NAME = 'model1573734824.6870413.h5'
+PATH_TO_MODELS = "Models/"
+
+TRAIN = True # train the model or not
+EPOCHS = 5
+#================================================================
 
 # Importer dataset et voir les features
 
@@ -15,13 +26,8 @@ print(features.head())
 features.plot(subplots=True)
 plt.show()
 
-# On normalise :
+# On charge les features interessantes :
 dataset = features.values
-"""
-data_mean = dataset.mean(axis=0)
-data_std = dataset.std(axis=0)
-
-dataset = (dataset-data_mean)/data_std"""
 
 # On crée le set d'entrainement:
 
@@ -40,31 +46,45 @@ def createTraining(dataset,nb_measures,index_features_in):
 # 1 jour = 96 mesures
 x_train,y_train = createTraining(dataset,96,4)
 
-# Model
+# Load the model or create it
+if LOAD: 
+    model = keras.models.load_model(PATH_TO_MODELS + MODEL_TO_LOAD_NAME)
+    model.compile(optimizer=tf.train.RMSPropOptimizer(learning_rate=0.005), loss='mae')
+else:
+    # Model
+    input_shape = (x_train.shape[-2],x_train.shape[-1])
 
-input_shape = (x_train.shape[-2],x_train.shape[-1])
+    model = tf.keras.models.Sequential()
+    model.add(tf.keras.layers.LSTM(96,input_shape=input_shape,name='LSTM_layer'))
+    model.add(tf.keras.layers.Dense(1,name="Dense_layer"))
+    model.compile(optimizer=tf.train.RMSPropOptimizer(learning_rate=0.005), loss='mae')
 
-model = tf.keras.models.Sequential()
-model.add(tf.keras.layers.LSTM(96,input_shape=input_shape,name='LSTM_layer'))
-model.add(tf.keras.layers.Dense(1,name="Dense_layer"))
-model.compile(optimizer=tf.train.RMSPropOptimizer(learning_rate=0.005), loss='mae')
+if TRAIN:
+    # Train    
+    EVALUATION_INTERVAL = 100
 
-# Train
-EPOCHS = 10
-EVALUATION_INTERVAL = 131
-
-history = model.fit(x_train,
-                    y_train,
-                    epochs=EPOCHS,
-                    steps_per_epoch=EVALUATION_INTERVAL)
-
-# plot history
-plt.plot(history.history['loss'], label='loss')
-plt.legend()
-plt.show()
+    history = model.fit(x_train,
+                        y_train,
+                        epochs=EPOCHS,
+                        steps_per_epoch=EVALUATION_INTERVAL)
+    
+    if len(history.history['loss'])>1:
+        # plot history
+        plt.plot(history.history['loss'], label='loss')
+        plt.suptitle('Model training', fontsize=20)
+        plt.xlabel('Epochs', fontsize=18)
+        plt.ylabel('Loss', fontsize=16)
+        plt.show()
+        
+    model.save(PATH_TO_MODELS+"model"+str(time.time())+".h5")
 
 #plot predict
 plt.plot(y_train, label='Real')
 plt.plot(model.predict(x_train), label='Prediction')
+plt.suptitle('Prediction of the air index quality', fontsize=20)
+plt.xlabel('Days', fontsize=18)
+plt.ylabel('IQ', fontsize=16)
 plt.legend()
 plt.show()
+
+
