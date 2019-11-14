@@ -21,7 +21,8 @@ for m in range(0,len(dfMel)):
         a = datetime.datetime.strptime(a,'%Y-%m-%d %H:%M:%S')
         if b == a.date():
             try :
-                listeDataJours.append({"Date" : str(b)+' '+str(a.time()),
+                listeDataJours.append({"Date" : b,
+                                       "Heure" : a.time(),
                                        "TempExt": dfRuche.at[r,"TempExt"], 
                                        "HygroExt" : dfRuche.at[r,"HygroExt"],
                                        "PanneauS" : dfRuche.at[r,"PanneauS"],
