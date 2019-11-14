@@ -86,5 +86,3 @@ plt.xlabel('Days', fontsize=18)
 plt.ylabel('IQ', fontsize=16)
 plt.legend()
 plt.show()
-
-
