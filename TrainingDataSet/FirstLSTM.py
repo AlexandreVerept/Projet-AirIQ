@@ -7,11 +7,11 @@ import time
 
 #=======================Parameters================================
 LOAD = True # load model or create one
-MODEL_TO_LOAD_NAME = 'model1573734824.6870413.h5'
+MODEL_TO_LOAD_NAME = 'modelkevin.h5'
 PATH_TO_MODELS = "Models/"
 
 TRAIN = True # train the model or not
-EPOCHS = 5
+EPOCHS = 6
 #================================================================
 
 # Importer dataset et voir les features
@@ -35,16 +35,32 @@ def createTraining(dataset,nb_measures,index_features_in):
     # on va decouper le dataset en tranches de nb_measures:
     chunks = [dataset[x:x+nb_measures] for x in range(0, len(dataset), nb_measures)]
     del chunks[-1] # ddelete the last one as it may be inferior to nb_measures
-    chunks = np.array(chunks) 
-    print ("dataset shape:",chunks.shape)    
+    chunks = np.array(chunks)  
     x_train = chunks[:,:,0:index_features_in]
     y_train = chunks[:,-1,4]
-    print ("train input shape:",x_train.shape)
-    print ("train output shape:",y_train.shape)   
     return(x_train, y_train)
+    
+def calc_accuracy(y_pred,y_val):
+    count=0
+    for i in range(0,len(y_val)):
+        if y_val[i]==round(y_pred[i][0]):
+            count+=1
+    if count==0:
+        return(100)
+    return(count/len(y_val)*100)
 
 # 1 jour = 96 mesures
 x_train,y_train = createTraining(dataset,96,4)
+
+#split pour validation
+split = int(len(y_train)*5/6)
+
+x_val = x_train[split:-1]
+x_train = x_train[0:split]
+
+y_val = y_train[split:-1]
+y_train = y_train[0:split]
+
 
 # Load the model or create it
 if LOAD: 
@@ -60,13 +76,11 @@ else:
     model.compile(optimizer=tf.train.RMSPropOptimizer(learning_rate=0.005), loss='mae')
 
 if TRAIN:
-    # Train    
-    EVALUATION_INTERVAL = 100
-
+    # Train  
     history = model.fit(x_train,
                         y_train,
                         epochs=EPOCHS,
-                        steps_per_epoch=EVALUATION_INTERVAL)
+                        steps_per_epoch=len(x_train))
     
     if len(history.history['loss'])>1:
         # plot history
@@ -79,10 +93,16 @@ if TRAIN:
     model.save(PATH_TO_MODELS+"model"+str(time.time())+".h5")
 
 #plot predict
+y_pred = model.predict(x_train)
+    
 plt.plot(y_train, label='Real')
-plt.plot(model.predict(x_train), label='Prediction')
+plt.plot(y_pred, label='Prediction')
 plt.suptitle('Prediction of the air index quality', fontsize=20)
 plt.xlabel('Days', fontsize=18)
 plt.ylabel('IQ', fontsize=16)
 plt.legend()
 plt.show()
+
+print("Accuracy:", calc_accuracy(y_pred,y_val))
+
+
