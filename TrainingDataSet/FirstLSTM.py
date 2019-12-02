@@ -70,9 +70,10 @@ else:
     input_shape = (x_train.shape[-2],x_train.shape[-1])
 
     model = tf.keras.models.Sequential()
-    model.add(tf.keras.layers.LSTM(96,input_shape=input_shape,name='LSTM_layer'))
+    model.add(tf.keras.layers.LSTM(96,input_shape=input_shape,name='LSTM_layer',go_backwards=True))
     model.add(tf.keras.layers.Dense(1,name="Dense_layer"))
     model.compile(optimizer=tf.train.RMSPropOptimizer(learning_rate=0.005), loss='mae')
+    model.summary()
 
 if TRAIN:
     # Train  

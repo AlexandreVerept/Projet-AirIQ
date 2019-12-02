@@ -21,7 +21,7 @@ NB_MEASURES = 8
 
 df = pd.read_csv("CompleteDataset.csv", header=0, delimiter=';')
 
-features_considered = ['pression_mer', 'direction_vent','force_vent','temperature','humidite','pression','IQ','IQ_J+1']
+features_considered = ['direction_vent','force_vent','temperature','humidite','pression','IQ','IQ_J+1']
 features = df[features_considered]
 features.index = df['Date']
 
@@ -53,7 +53,7 @@ def calc_accuracy(y_pred,y_val):
     return(count/len(y_val)*100)
 
 # 1 jour = 8 mesures
-x_train,y_train = createTraining(dataset,NB_MEASURES,NB_MEASURES-1)
+x_train,y_train = createTraining(dataset,NB_MEASURES,len(features_considered)-1)
 
 #split pour validation
 split = int(len(y_train)*5/6)
@@ -73,16 +73,17 @@ else:
     input_shape = (x_train.shape[-2],x_train.shape[-1])
 
     model = tf.keras.models.Sequential()
-    model.add(tf.keras.layers.LSTM(NB_MEASURES,input_shape=input_shape,name='LSTM_layer'))
+    model.add(tf.keras.layers.LSTM(NB_MEASURES,input_shape=input_shape,name='LSTM_layer',go_backwards=True))
     model.add(tf.keras.layers.Dense(1,name="Dense_layer"))
     model.compile(optimizer=tf.train.RMSPropOptimizer(learning_rate=0.005), loss='mae')
+    model.summary()
 
 if TRAIN:
     # Train  
     history = model.fit(x_train,
                         y_train,
                         epochs=EPOCHS,
-                        steps_per_epoch=len(x_train))
+                        steps_per_epoch=len(x_train)/2)
     
     if len(history.history['loss'])>1:
         # plot history
