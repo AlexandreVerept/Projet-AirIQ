@@ -1,4 +1,5 @@
 import requests
+import gzip
 
 print('Download Starting...')
 
@@ -7,11 +8,11 @@ URL = 'https://donneespubliques.meteofrance.fr/donnees_libres/Txt/Synop/Archive/
 def loadFile(filename):
     try:
         r = requests.get(URL+"/"+filename)
-        with open("datas/"+filename,'wb') as output_file:
+        with gzip.open("datas/"+filename,'wb') as output_file:
             output_file.write(r.content)
-        print(filename + '- completed')
+        print(filename + ' - completed')
     except:
-        print(filename + '- ERROR')
+        print(filename + ' - ERROR')
     
 
 for year in range (1996,2020):
@@ -22,3 +23,5 @@ for year in range (1996,2020):
         date = str(year) + str(month)        
         filename = "synop."+ str(year)+str(month)+ ".csv.gz"
         loadFile(filename)
+        
+        
