@@ -6,7 +6,7 @@ from tensorflow import keras
 import time
 
 #=======================Parameters================================
-LOAD = True # load model or create one
+LOAD = False # load model or create one
 MODEL_TO_LOAD_NAME = 'modelkevin.h5'
 PATH_TO_MODELS = "Models/"
 
