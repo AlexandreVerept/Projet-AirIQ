@@ -7,11 +7,11 @@ import time
 
 #=======================Parameters================================
 LOAD = False # load model or create one
-MODEL_TO_LOAD_NAME = 'modelkevin.h5'
+MODEL_TO_LOAD_NAME = 'modelNew.h5'
 PATH_TO_MODELS = "Models/"
 
 TRAIN = True # train the model or not
-EPOCHS = 6
+EPOCHS = 1
 #================================================================
 
 # Importer dataset et voir les features
@@ -37,7 +37,7 @@ def createTraining(dataset,nb_measures,index_features_in):
     del chunks[-1] # ddelete the last one as it may be inferior to nb_measures
     chunks = np.array(chunks)  
     x_train = chunks[:,:,0:index_features_in]
-    y_train = chunks[:,-1,4]
+    y_train = chunks[:,-1,-1]
     return(x_train, y_train)
     
 def calc_accuracy(y_pred,y_val):
@@ -46,7 +46,7 @@ def calc_accuracy(y_pred,y_val):
         if y_val[i]==round(y_pred[i][0]):
             count+=1
     if count==0:
-        return(100)
+        return(0)
     return(count/len(y_val)*100)
 
 # 1 jour = 96 mesures
@@ -60,7 +60,6 @@ x_train = x_train[0:split]
 
 y_val = y_train[split:-1]
 y_train = y_train[0:split]
-
 
 # Load the model or create it
 if LOAD: 
