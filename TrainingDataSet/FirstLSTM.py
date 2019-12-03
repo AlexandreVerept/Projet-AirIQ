@@ -12,15 +12,24 @@ PATH_TO_MODELS = "Models/"
 
 TRAIN = True # train the model or not
 EPOCHS = 1
+
+features_considered = ['PanneauS', 'TempExt','HygroExt','IQ','IQ_j+1']
+features_to_normalize = ['PanneauS', 'TempExt','HygroExt']
+
+NB_MEASURES = 96
+SIZE_LSTM = NB_MEASURES
 #================================================================
 
 # Importer dataset et voir les features
 
 df = pd.read_csv("Dataset.csv", header=0, delimiter=';')
 
-features_considered = ['PanneauS', 'TempExt','HygroExt','IQ','IQ_j+1']
 features = df[features_considered]
 features.index = df['Date']
+
+#normalize
+f = features[features_to_normalize]
+features[features_to_normalize] = (f-f.min())/(f.max()-f.min())
 
 print(features.head())
 features.plot(subplots=True)
@@ -50,7 +59,7 @@ def calc_accuracy(y_pred,y_val):
     return(count/len(y_val)*100)
 
 # 1 jour = 96 mesures
-x_train,y_train = createTraining(dataset,96,4)
+x_train,y_train = createTraining(dataset,NB_MEASURES,len(features_considered)-1)
 
 #split pour validation
 split = int(len(y_train)*5/6)
@@ -70,7 +79,7 @@ else:
     input_shape = (x_train.shape[-2],x_train.shape[-1])
 
     model = tf.keras.models.Sequential()
-    model.add(tf.keras.layers.LSTM(96,input_shape=input_shape,name='LSTM_layer',go_backwards=True))
+    model.add(tf.keras.layers.LSTM(SIZE_LSTM,input_shape=input_shape,name='LSTM_layer',go_backwards=True))
     model.add(tf.keras.layers.Dense(1,name="Dense_layer"))
     model.compile(optimizer=tf.train.RMSPropOptimizer(learning_rate=0.005), loss='mae')
     model.summary()
@@ -104,5 +113,3 @@ plt.legend()
 plt.show()
 
 print("Accuracy:", calc_accuracy(y_pred,y_val))
-
-

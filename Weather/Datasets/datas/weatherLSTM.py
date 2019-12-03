@@ -7,23 +7,29 @@ import time
 
 #=======================Parameters================================
 LOAD = False # load model or create one
-MODEL_TO_LOAD_NAME = '.h5'
+MODEL_TO_LOAD_NAME = 'modelNew.h5'
 PATH_TO_MODELS = "Models/"
 
 TRAIN = True # train the model or not
-EPOCHS = 3
+EPOCHS = 5
 
-# number of measures that we take into account for a prediction
+features_considered = ['pression', 'temperature','humidite','direction_vent','force_vent','pression_mer','IQ','IQ_J+1']
+features_to_normalize = ['pression', 'temperature','humidite','direction_vent','force_vent','pression_mer']
+
 NB_MEASURES = 8
+SIZE_LSTM = 96
 #================================================================
 
 # Importer dataset et voir les features
 
 df = pd.read_csv("CompleteDataset.csv", header=0, delimiter=';')
 
-features_considered = ['direction_vent','force_vent','temperature','humidite','pression','IQ','IQ_J+1']
 features = df[features_considered]
 features.index = df['Date']
+
+#normalize
+f = features[features_to_normalize]
+features[features_to_normalize] = (f-f.min())/(f.max()-f.min())
 
 print(features.head())
 features.plot(subplots=True)
@@ -37,8 +43,8 @@ dataset = features.values
 def createTraining(dataset,nb_measures,index_features_in):
     # on va decouper le dataset en tranches de nb_measures:
     chunks = [dataset[x:x+nb_measures] for x in range(0, len(dataset), nb_measures)]
-    del chunks[-1] # delete the last one as it may be inferior to nb_measures
-    chunks = np.array(chunks)
+    del chunks[-1] # ddelete the last one as it may be inferior to nb_measures
+    chunks = np.array(chunks)  
     x_train = chunks[:,:,0:index_features_in]
     y_train = chunks[:,-1,-1]
     return(x_train, y_train)
@@ -46,13 +52,13 @@ def createTraining(dataset,nb_measures,index_features_in):
 def calc_accuracy(y_pred,y_val):
     count=0
     for i in range(0,len(y_val)):
-        if y_val[i]==round(y_pred[i][0]):            
+        if y_val[i]==round(y_pred[i][0]):
             count+=1
     if count==0:
         return(0)
     return(count/len(y_val)*100)
 
-# 1 jour = 8 mesures
+# 1 jour = 96 mesures
 x_train,y_train = createTraining(dataset,NB_MEASURES,len(features_considered)-1)
 
 #split pour validation
@@ -73,7 +79,7 @@ else:
     input_shape = (x_train.shape[-2],x_train.shape[-1])
 
     model = tf.keras.models.Sequential()
-    model.add(tf.keras.layers.LSTM(NB_MEASURES,input_shape=input_shape,name='LSTM_layer',go_backwards=True))
+    model.add(tf.keras.layers.LSTM(SIZE_LSTM,input_shape=input_shape,name='LSTM_layer',go_backwards=True))
     model.add(tf.keras.layers.Dense(1,name="Dense_layer"))
     model.compile(optimizer=tf.train.RMSPropOptimizer(learning_rate=0.005), loss='mae')
     model.summary()
@@ -83,7 +89,7 @@ if TRAIN:
     history = model.fit(x_train,
                         y_train,
                         epochs=EPOCHS,
-                        steps_per_epoch=len(x_train)/2)
+                        steps_per_epoch=len(x_train))
     
     if len(history.history['loss'])>1:
         # plot history
@@ -97,7 +103,7 @@ if TRAIN:
 
 #plot predict
 y_pred = model.predict(x_train)
-
+    
 plt.plot(y_train, label='Real')
 plt.plot(y_pred, label='Prediction')
 plt.suptitle('Prediction of the air index quality', fontsize=20)
@@ -107,5 +113,3 @@ plt.legend()
 plt.show()
 
 print("Accuracy:", calc_accuracy(y_pred,y_val))
-
-
