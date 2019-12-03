@@ -5,19 +5,23 @@ import tensorflow as tf
 from tensorflow import keras
 import time
 
+from sklearn.utils import shuffle
+
 #=======================Parameters================================
 LOAD = False # load model or create one
 MODEL_TO_LOAD_NAME = 'modelNew.h5'
 PATH_TO_MODELS = "Models/"
 
 TRAIN = True # train the model or not
-EPOCHS = 1
+EPOCHS = 10
 
 features_considered = ['PanneauS', 'TempExt','HygroExt','IQ','IQ_j+1']
 features_to_normalize = ['PanneauS', 'TempExt','HygroExt']
 
 NB_MEASURES = 96
 SIZE_LSTM = NB_MEASURES
+
+RANDOM_SHUFFLE_SEED = 0
 #================================================================
 
 # Importer dataset et voir les features
@@ -47,7 +51,8 @@ def createTraining(dataset,nb_measures,index_features_in):
     chunks = np.array(chunks)  
     x_train = chunks[:,:,0:index_features_in]
     y_train = chunks[:,-1,-1]
-    return(x_train, y_train)
+    x_train,y_train = shuffle(x_train,y_train, random_state=RANDOM_SHUFFLE_SEED)
+    return(x_train, y_train)    
     
 def calc_accuracy(y_pred,y_val):
     count=0
