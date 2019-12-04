@@ -38,8 +38,8 @@ def treatRequest(data):
    
  
 if __name__ == '__main__':
-    data = getRequest()
+    data = getRequest("https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=indice-qualite-de-lair&sort=date_ech&rows=2")
     df = treatRequest(data)
-    df.to_csv("data_MEL_API.csv", index=False,sep=';')
+    df.to_csv("data_MEL_API2.csv", index=False,sep=';')
     
    
