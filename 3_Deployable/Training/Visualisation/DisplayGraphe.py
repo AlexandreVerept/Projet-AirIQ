@@ -28,12 +28,14 @@ plt.show()
 #temperature difference
 #===============
 
-plt.title("Temperature difference")
-plt.plot(data['temperatureRuche']-data['temperatureMeteo'], label ="difference", color ='lightgreen')
+plt.title("Temperature difference (Ruche - Meteo)")
+diffTemp = data['temperatureRuche']-data['temperatureMeteo']
+plt.plot(diffTemp, label ="difference", color ='lightgreen')
 
 plt.xlabel('Days')
 plt.ylabel('delta °C')
 plt.show()
+print("Mean = ",round(diffTemp.mean(axis=0),2)," ; Standard deviation: ",round(diffTemp.std(axis=0),2))
 
 #===============
 #humidity
@@ -52,9 +54,11 @@ plt.show()
 #humidity difference
 #===============
 
-plt.title("Humidity difference")
-plt.plot(data['humiditeRuche']-data['humiditeMeteo'], label ="difference", color ='lightgreen')
+plt.title("Humidity difference (Ruche - Meteo)")
+diffHum = data['humiditeRuche']-data['humiditeMeteo']
+plt.plot(diffHum, label ="difference", color ='lightgreen')
 
 plt.xlabel('Days')
 plt.ylabel('delta humidity %')
 plt.show()
+print("Mean = ",round(diffHum.mean(axis=0),2)," ; Standard deviation: ",round(diffHum.std(axis=0),2))
