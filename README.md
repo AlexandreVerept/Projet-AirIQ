@@ -46,7 +46,9 @@ All the scripts of this part can be found in the *"1_FirstLSTM"* folder.
 
   If you want more technical information about RNNs and LSTMs, you can read [this article](http://colah.github.io/posts/2015-08-Understanding-LSTMs/) that we found very enlightening.
 
-- So we managed to create our model and the according input data, we trained it on all the features we had, and we got those results **on the training data**:<img src="1_FirstLSTM/Archive/pictures/dataRuche.PNG" alt="r" style="zoom:100%;" />
+- So we managed to create our model and the according input data, we trained it on all the features we had, and we got those results **on the training data**:
+
+  <img src="1_FirstLSTM/Archive/pictures/dataRuche.PNG" alt="r" style="zoom:100%;" />
 
   It didn't looked that bad, but the maximum **accuracy we had on validation data was around 35%**, which is not very satisfactory.
 
@@ -100,4 +102,3 @@ All the scripts of this part can be found in the *"3_TrainingFinalLSTM"* folder.
 All the scripts of this part can be found in the *"4_Production"* folder.
 
 - Coming soon
-
