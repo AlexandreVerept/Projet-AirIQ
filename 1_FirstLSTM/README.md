@@ -8,4 +8,4 @@ Here are the scripts we used to create our first Neural Network for this project
 
 - If you want technical information about RNNs and LSTMs, you can read [this article](http://colah.github.io/posts/2015-08-Understanding-LSTMs/) that we found very enlightening.
 
-- Here are some results of the training:<img src="Archive/pictures/dataRuche.PNG" alt="r" style="zoom:100%;" />
+- Here are some results of the training:<img src="Archive/pictures/dataRuche.png" alt="r" style="zoom:100%;" />
