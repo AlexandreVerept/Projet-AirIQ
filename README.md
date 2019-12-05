@@ -14,7 +14,7 @@ This is a first year of master research project done by **Mohamed Boulanouar**, 
 
 - For all the planning and organization, we used a Trello ([**here**](https://trello.com/b/2u0xyfoi/gestion-projet-airiq)) with a TeamGantt powerup (which is not public)
 
-  <img src="Suivi_de_projet\TeamGantt.png" alt="r" style="zoom:40%;" />
+  <img src="Suivi_de_projet/TeamGantt.png" alt="r" style="zoom:40%;" />
 
 - *Please take note that some codes/resources are in French in this project, as the final evaluation is to realize a video explaining the process of a research project in an engineering school, and show it to French high school students.* 
 
