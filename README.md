@@ -83,17 +83,17 @@ All the scripts of this part can be found in the *"3_TrainingFinalLSTM"* folder.
 
 - Now we **test the model we trained on open data to predict the IQ measures from the beehive**. This is the first result we had:
 
-  <img src="\3_TrainingFinalLSTM/Pictures/firstTest.png" alt="r" style="zoom:90%;" />
+  <img src="3_TrainingFinalLSTM/Pictures/firstTest.png" alt="r" style="zoom:90%;" />
 
   - We drop from ~70% to ~50% of accuracy. 
 
 - We wanted to understand the **difference between our training data and production data**, so we made tests and measures, including those ones:
 
-  <img src="\3_TrainingFinalLSTM/Pictures/1.png" alt="r" style="zoom:90%;" /><img src="\3_TrainingFinalLSTM/Pictures/2.png" alt="r" style="zoom:90%;" />
+  <img src="3_TrainingFinalLSTM/Pictures/1.png" alt="r" style="zoom:90%;" /><img src="3_TrainingFinalLSTM/Pictures/2.png" alt="r" style="zoom:90%;" />
 
   - We can clearly see that for the same day, the temperature measured by the censor from the beehive tends to be higher of 2,2°C in mean. Maybe we can add an offset to our training data.
 
-  <img src="\3_TrainingFinalLSTM/Pictures/3.png" alt="r" style="zoom:90%;" /><img src="\3_TrainingFinalLSTM/Pictures/4.png" alt="r" style="zoom:90%;" />
+  <img src="3_TrainingFinalLSTM/Pictures/3.png" alt="r" style="zoom:90%;" /><img src="3_TrainingFinalLSTM/Pictures/4.png" alt="r" style="zoom:90%;" />
 
   - For humidity, apart from aberrant values on the right side, there is no real offset to be added in the training data.
 
