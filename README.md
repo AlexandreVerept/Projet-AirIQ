@@ -48,7 +48,7 @@ All the scripts of this part can be found in the *"1_FirstLSTM"* folder.
 
 - So we managed to create our model and the according input data, we trained it on all the features we had, and we got those results **on the training data**:
 
-  <img src="1_FirstLSTM/Archive/pictures/dataRuche.PNG" alt="r" style="zoom:100%;" />
+  <img src="1_FirstLSTM/Archive/pictures/dataRuche.png" alt="r" style="zoom:100%;" />
 
   It didn't looked that bad, but the maximum **accuracy we had on validation data was around 35%**, which is not very satisfactory.
 
