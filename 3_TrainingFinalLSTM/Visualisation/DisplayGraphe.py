@@ -13,6 +13,7 @@ data = pd.read_csv("datas/affichagePourGrapheTemp.csv", header=0, delimiter=';')
 #===============
 #temperature
 #===============
+#data = data.drop(data.index[-150:])
 
 plt.title("Temperature")
 
@@ -27,15 +28,17 @@ plt.show()
 #===============
 #temperature difference
 #===============
-
-plt.title("Temperature difference (Ruche - Meteo)")
 diffTemp = data['temperatureRuche']-data['temperatureMeteo']
+txt = "Mean = "+str(round(diffTemp.mean(axis=0),2))+" ; Standard deviation: "+str(round(diffTemp.std(axis=0),2))
+
+plt.title("Temperature difference (Beehive - Meteo France)\n"+txt)
+
 plt.plot(diffTemp, label ="difference", color ='lightgreen')
 
-plt.xlabel('Days')
+plt.xlabel('Measures')
 plt.ylabel('delta °C')
 plt.show()
-print("Mean = ",round(diffTemp.mean(axis=0),2)," ; Standard deviation: ",round(diffTemp.std(axis=0),2))
+
 
 #===============
 #humidity
@@ -45,7 +48,7 @@ plt.title("Humidity")
 plt.plot (data['humiditeMeteo'],label='Meteo')
 plt.plot (data['humiditeRuche'],label='Ruche')
 
-plt.xlabel('Days')
+plt.xlabel('Measures')
 plt.ylabel('humidity %')
 plt.legend()
 plt.show()
@@ -53,12 +56,14 @@ plt.show()
 #===============
 #humidity difference
 #===============
-
-plt.title("Humidity difference (Ruche - Meteo)")
 diffHum = data['humiditeRuche']-data['humiditeMeteo']
+
+txt = "Mean = "+str(round(diffHum.mean(axis=0),2))+" ; Standard deviation: "+str(round(diffHum.std(axis=0),2))
+
+plt.title("Humidity difference (Beehive - Meteo France)\n"+txt)
+
 plt.plot(diffHum, label ="difference", color ='lightgreen')
 
 plt.xlabel('Days')
 plt.ylabel('delta humidity %')
 plt.show()
-print("Mean = ",round(diffHum.mean(axis=0),2)," ; Standard deviation: ",round(diffHum.std(axis=0),2))

@@ -7,12 +7,12 @@ import time
 from sklearn.utils import shuffle
 
 #=======================Parameters================================
-LOAD = False # load model or create one
-MODEL_TO_LOAD_NAME = 'modelNew.h5'
+LOAD = True # load model or create one
+MODEL_TO_LOAD_NAME = '40epochs.h5'
 PATH_TO_MODELS = "Models/"
 
-TRAIN = True # train the model or not
-EPOCHS = 10
+TRAIN = False # train the model or not
+EPOCHS = 40
 
 features_considered = ['temperature','humidite','IQ','IQ_J+1']
 features_to_normalize = ['temperature','humidite']
