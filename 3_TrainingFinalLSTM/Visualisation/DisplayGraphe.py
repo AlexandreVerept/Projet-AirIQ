@@ -20,7 +20,7 @@ plt.title("Temperature")
 plt.plot(data['temperatureRuche'],label='Ruche')
 plt.plot(data['temperatureMeteo'],label='Meteo')
 
-plt.xlabel('Days')
+plt.xlabel('Measures')
 plt.ylabel('°C')
 plt.legend()
 plt.show()
@@ -64,6 +64,6 @@ plt.title("Humidity difference (Beehive - Meteo France)\n"+txt)
 
 plt.plot(diffHum, label ="difference", color ='lightgreen')
 
-plt.xlabel('Days')
+plt.xlabel('Measures')
 plt.ylabel('delta humidity %')
 plt.show()
