@@ -44,16 +44,17 @@ def launch(function):
         except:
             check = False
         if not check:
-            ERROR_NUMBER += 1
-            time.sleep(30)
+            ERROR_NUMBER += 1            
             if ERROR_NUMBER > 5:
-                print("Abandon du script, veuillez verifier que tout va bien (arborescence, connexion, rueche...)")
+                print("Abandon du script, veuillez verifier que tout va bien (arborescence, connexion, ruche...)")
                 return(False)
+            time.sleep(30)
     return(True)
 
 if __name__ == '__main__':
     # Appelle la fonction call script qui va appeler le script python tous les jours
-    schedule.every().day.at('23:00').do(call_script)
+    #schedule.every().day.at('11:06').do(call_script)
+    schedule.every(1).minutes.do(call_script)
 
     # Boucle infinie afin de pouvoir appeler la fonction au moment predefini 
     while True:

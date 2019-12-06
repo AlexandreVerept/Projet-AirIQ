@@ -8,21 +8,21 @@ from sklearn.utils import shuffle
 
 #=======================Parameters================================
 LOAD = True # load model or create one
-MODEL_TO_LOAD_NAME = '10epochs.h5'
+MODEL_TO_LOAD_NAME = 'good2.h5'
 PATH_TO_MODELS = "Models/"
 
 TRAIN = False # train the model or not
-EPOCHS = 20
+EPOCHS = 2
 
 features_considered = ['temperature','humidite','IQ','IQ_J+1']
-features_to_normalize = ['temperature','humidite']
 
-CSV_PATH = "CreateDataset/datas/testingDataset.csv"
+#CSV_PATH = "CreateDataset/datas/testingDataset.csv"
+CSV_PATH = "CreateDataset/datas/trainingDatasetOffset.csv"
 
 NB_MEASURES = 8
 SIZE_LSTM = 8
 
-RANDOM_SHUFFLE_SEED = 0
+RANDOM_SHUFFLE_SEED = 2
 #================================================================
 
 # Importer dataset et voir les features
@@ -33,8 +33,9 @@ features = df[features_considered]
 features.index = df['Date']
 
 #normalize
-f = features[features_to_normalize]
-features[features_to_normalize] = (f-f.min())/(f.max()-f.min())
+features['temperature'] = features['temperature'].apply(lambda x: (x - (-12.30))/((46.90)-(-12.30)))
+features['humidite'] = features['humidite'].apply(lambda x: x/100)
+features['IQ'] = features['IQ'].apply(lambda x: x/10)
 
 print(features.head())
 features.plot(subplots=True)
@@ -97,8 +98,9 @@ if TRAIN:
         plt.xlabel('Epochs', fontsize=18)
         plt.ylabel('Loss', fontsize=16)
         plt.show()
-        
-    model.save(PATH_TO_MODELS+"model"+str(time.time())+".h5")
+    
+    name = "model"+str(time.time())
+    model.save(PATH_TO_MODELS+ name+".h5")
 
 
 def calc_accuracy(y_pred,y_true):

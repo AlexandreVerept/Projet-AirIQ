@@ -4,18 +4,19 @@ import pandas as pd
 import tensorflow as tf
 from tensorflow import keras
 
-MODEL_NAME = "10epochs.h5"
+MODEL_NAME = "goodTest.h5"
 
 def LSTM():
     features = pd.read_csv("datas/predictionData.csv", header=0, delimiter=';')
+    print(features)
     features.index = features['Date']
 
     #normalize
-    features_to_normalize = ['temperature','humidite']
-    f = features[features_to_normalize]
-    features[features_to_normalize] = (f-f.min())/(f.max()-f.min())
-
-    print(features.head())
+    #normalize
+    features['temperature'] = features['temperature'].apply(lambda x: (x - (-12.30))/((46.90)-(-12.30)))
+    features['humidite'] = features['humidite'].apply(lambda x: x/100)
+    features['IQ'] = features['IQ'].apply(lambda x: x/10)
+    
     features.plot(subplots=True)
     plt.show()
     

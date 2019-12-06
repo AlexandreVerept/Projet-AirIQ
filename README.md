@@ -56,14 +56,14 @@ All the scripts of this part can be found in the *"1_FirstLSTM"* folder.
   - We trained our model on spring/summer months, and validated on autumn months, so we need to shuffle our data before the training.
   - **Normalized data** produces more precise results.
   - The feature *"Panneaus"* (= solar panel) seams effectively useless as the accuracy did not moved significantly with or without it.
-  - On this period of time, we do not have IQ to 10, 9, 8 and 1, so it lack some example of possible situations.
-  - But most importantly, **131 days of data** (100 for training and 30 for validation) **is** **far from enough** as we expected ! Indeed the measures at ISEN (our school) only started in May, so we had less than a year of measures. We needed to **find more data** to train it !
+  - On this period of time, we do not have IQ to 10, 9, 8 and 1, so it lacks some example of possible situations.
+  - But the most important problem, **131 days of data** (100 for training and 30 for validation) **is** **far from enough** to train an efficient model, as we expected ! Indeed the measures at ISEN only started in May, so we had less than a year of measures. We needed to **find more data** to train it !
 
 ### Improving our prediction with open data
 
 All the scripts of this part can be found in the *"2_SecondLSTM"* folder.
 
-- After those bad but encouraging results, we decided to **train our model on public data**, freely available online. We choose the weather dataset on the [Meteo France](https://donneespubliques.meteofrance.fr/?fond=produit&id_produit=90&id_rubrique=32) website. 
+- After those mixed but encouraging results, we decided to **train our model on public data**, freely available online. We choose the weather dataset on the [Meteo France](https://donneespubliques.meteofrance.fr/?fond=produit&id_produit=90&id_rubrique=32) website. 
 
 - After **downloading** every month of data since 1996, **selecting information** we needed and **cleaning** the measurements, we crossed this dataset with the one containing the IQ of everyday since 2018, and we **resampled** to have a measure every 3 hours on the last 2 years:
 

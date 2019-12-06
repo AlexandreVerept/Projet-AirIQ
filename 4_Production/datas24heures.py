@@ -37,6 +37,12 @@ def collectDatasFromTheDatabase():
         #resample the data    
         df = df.fillna(method='ffill')
         df = df.resample(rule='3H', base=0).mean()
+        
+        size = df.shape[0]
+        
+        while size > 8:
+            df.drop(df.index[[0]], inplace=True)
+            size = df.shape[0]
     
         df.to_csv("datas/Ruche24h.csv", index=True,sep=';')
     except:
@@ -56,7 +62,7 @@ def collectTheAirIQ():
         with urllib.request.urlopen(request) as jsonfile:
             data = json.loads(jsonfile.read().decode())
     except:
-        print("ECHEC LORS DE LA CONNECTION A L'API DE LA MEL !")
+        print("ECHEC LORS DE LA CONNEXION A L'API DE LA MEL !")
         return(False)
         
     #treat the response:
