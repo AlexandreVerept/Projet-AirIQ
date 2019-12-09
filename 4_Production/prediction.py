@@ -7,7 +7,7 @@ from tensorflow import keras
 #personnal librairies
 import datasUtilities as du
 
-MODEL_NAME = "goodTest.h5"
+MODEL_NAME = "modelProduction.h5"
 
 def lstm():
     """

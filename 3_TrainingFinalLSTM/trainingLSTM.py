@@ -8,21 +8,21 @@ from sklearn.utils import shuffle
 
 #=======================Parameters================================
 LOAD = True # load model or create one
-MODEL_TO_LOAD_NAME = 'good2.h5'
+MODEL_TO_LOAD_NAME = 'modelProduction.h5'
 PATH_TO_MODELS = "Models/"
 
 TRAIN = False # train the model or not
-EPOCHS = 2
+EPOCHS = 1
 
 features_considered = ['temperature','humidite','IQ','IQ_J+1']
 
 #CSV_PATH = "CreateDataset/datas/testingDataset.csv"
-CSV_PATH = "CreateDataset/datas/trainingDatasetOffset.csv"
+CSV_PATH = "CreateDataset/datas/trainingDatasetOffset12.csv"
 
 NB_MEASURES = 8
 SIZE_LSTM = 8
 
-RANDOM_SHUFFLE_SEED = 2
+RANDOM_SHUFFLE_SEED = 22
 #================================================================
 
 # Importer dataset et voir les features
@@ -52,7 +52,7 @@ def createTraining(dataset,nb_measures,index_features_in):
     del chunks[-1] # ddelete the last one as it may be inferior to nb_measures
     chunks = np.array(chunks)  
     x_train = chunks[:,:,0:index_features_in]
-    y_train = chunks[:,-1,-1]
+    y_train = chunks[:,0,-1]
     x_train,y_train = shuffle(x_train,y_train, random_state=RANDOM_SHUFFLE_SEED)
     return(x_train, y_train)
     

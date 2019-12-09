@@ -1,0 +1,144 @@
+/* début du header*/
+
+#menu-deroulant, #menu-deroulant ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+#menu-deroulant {
+/* on centre le menu dans la page */
+    text-align: center;
+}
+#menu-deroulant li {
+/* on place les liens du menu horizontalement */
+    display: inline-block;
+}
+#menu-deroulant ul li {
+/* on enlève ce comportement pour les liens du sous menu */
+    display: inherit;
+}
+#menu-deroulant a {
+    text-decoration: none;
+    display: block;
+	  color: white;
+    background-color: #B9F380;
+    word-spacing: normal;
+    padding-top: 8px;
+    padding-bottom: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+#menu-deroulant ul {
+    position: absolute;
+/* on cache les sous menus complètement sur la gauche */
+    left: -999em;
+    z-index: 1000;
+    font-size: 0.675em;
+}
+#menu-deroulant li:hover ul {
+/* Au survol des li du menu on replace les sous menus */
+    left: auto;
+}
+#menu-deroulant li a:hover, li a.active {
+	background-color: #9FF44B;
+	justify-content: space-between;
+}
+header {
+  font-size: 1.6em;
+}
+header .menu{
+	background-color: #B9F380;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+#tableMenu{
+  width: 100vw;
+}
+#tableMenu>tr{
+  width: 100%;
+}
+#tableMenu tr>td{
+    width: 50%;
+}
+#titre{
+  width: 40vw;
+  margin-left: 100px;
+}
+#abeille{
+  width: 10vw;
+}
+/* fin du header*/
+
+/*début du footer*/
+footer {
+	text-align: center;
+	padding-top: 3px;
+	padding-bottom: 10px;
+	padding-left: 40px;
+	padding-right: 40px;
+	text-decoration: none;
+	position: relative;
+  bottom: 0;
+  background-color: #B9F380;
+}
+footer a {
+	color:  #969E8E;
+}
+.float-right {
+	float:right;
+	margin-left:0px;
+}
+.lien-top {
+	margin-top:-50px;
+}
+/*fin du footer*/
+
+/*début du général*/
+body {
+	max-height: 100%;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	font-family: 'Open  Sans',sans-serif;
+	color : #333333;  
+	background-color: #FEFEFE;
+	height: 1em;
+	line-height: 1.5em;
+	padding-bottom: 3px;
+}
+h1 {
+	color: #969E8E;
+	font-size: 2em;
+	padding-bottom: 4px;
+	border-color: #969E8E;
+	border-bottom: 1px, dotted;
+	padding-left: 150px;
+  margin-top: 40px;
+}
+p {
+	padding-left: 50px;
+}
+/*fin du général*/
+
+/*début de la page d'accueil*/
+#presentation{
+  width: 60%;
+	margin-left: 100px;
+  margin-bottom: 50px;
+}
+#presentation_texte{
+  width: 50%;
+  font-size: 1.3em;
+	text-align: justify;
+}
+#isen{
+  text-decoration: none;
+  color : #9FF44B;
+}
+#isa{
+  text-decoration: none;
+  color : #9FF44B;
+}
+/*fin de la page de présentation*/
