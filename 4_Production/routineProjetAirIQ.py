@@ -6,7 +6,7 @@ import schedule
 import time
 
 #personnal librairies
-import datas24heures as dt
+import datasUtilities as du
 import prediction as pre
 
 ERROR_NUMBER = 0
@@ -20,14 +20,13 @@ def call_script():
     # get the datas up to date:
     global ERROR_NUMBER
     ERROR_NUMBER = 0
-    if launch(dt.collectDatasFromTheDatabase):
-        if launch(dt.collectTheAirIQ):
-            if launch(dt.mixIQandRuche):
-                print("Succes de la creation des datasets")
-    
+    if launch(du.collectDatasFromTheDatabase):
+        if launch(du.collectTheAirIQ):
+            if launch(du.mixIQandRuche):
+                print("Succes de la creation des datasets")    
                 #make the prediction
-                pred= pre.LSTM()
-                print("L'indice de qualite de l'air de demain :",pred)    
+                if launch(pre.lstm):
+                    print("Succes de la prediction")
     
 def launch(function):
     """
@@ -53,6 +52,7 @@ def launch(function):
 
 if __name__ == '__main__':
     # Appelle la fonction call script qui va appeler le script python tous les jours
+    
     #schedule.every().day.at('11:06').do(call_script)
     schedule.every(1).minutes.do(call_script)
 

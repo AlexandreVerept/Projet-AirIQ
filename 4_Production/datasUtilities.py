@@ -7,33 +7,39 @@ import urllib.request
 import json
 import datetime
 
+
 def collectDatasFromTheDatabase():
     """
     Se connecte à la base de donnée et va y chercher les données des dernières 24h
     
     @return: True si tout a bien fonctionné, False sinon
-    """
-    connection=pymysql.connect(host="localhost",
-                               user="root",
-                               passwd="Gousse212",
-                               db="devisenfdhruche",
-                               cursorclass=pymysql.cursors.DictCursor)
+    """    
     try:
+        with open('db_informations.json') as json_file:
+            infos = json.load(json_file)
+                
+        connection=pymysql.connect(host=infos["host"],
+                               user=infos["user"],
+                               passwd=infos["passwd"],
+                               db=infos["db"],
+                               cursorclass=pymysql.cursors.DictCursor)
+        
         with connection.cursor() as cursor:
             sql = "SELECT time,TempExt,HygroExt FROM RecuperationDonnees WHERE time > DATE_SUB(NOW(), INTERVAL 24 HOUR) AND time <= NOW()"
             cursor.execute(sql)
             result = cursor.fetchall()
+            
+        #select the informations we want
+        df = pd.DataFrame(result)
+        df = df[["TempExt","HygroExt","time"]]
+        df.index = df["time"]
+        
     except:
         print("ECHEC DANS LA COLLECTE DES DONNEES DE LA RUCHE !")
         return(False)
     finally:
         connection.close()
     try:
-        #select the informations we want
-        df = pd.DataFrame(result)
-        df = df[["TempExt","HygroExt","time"]]
-        df.index = df["time"]
-    
         #resample the data    
         df = df.fillna(method='ffill')
         df = df.resample(rule='3H', base=0).mean()
@@ -49,6 +55,7 @@ def collectDatasFromTheDatabase():
         print("ECHEC DANS L'ENREGISTREMENT DES DONNEES DE LA RUCHE !")
         return(False)
     return(True)
+    
     
 def collectTheAirIQ():
     """
@@ -80,6 +87,7 @@ def collectTheAirIQ():
         print("ECHEC LORS DU TRAITEMENT DES DONNEES DE L'API DE LA MEL !")
         return(False)
     return(True)
+    
     
 def mixIQandRuche():
     """
@@ -123,5 +131,36 @@ def mixIQandRuche():
     except:
         print("ECHEC LORS DE L'ENREGISTREMENT DU CSV !")
         return(False)
+    return(True) 
+    
+    
+def savePrediction(prediction):
+    """
+    get the air index quality of the last 2 days
+    
+    @return: True si tout a bien fonctionné, False sinon
+    """
+    try:
+        #load information from the database
+        with open('db_informations.json') as json_file:
+            infos = json.load(json_file)
+                
+        connection=pymysql.connect(host=infos["host"],
+                               user=infos["user"],
+                               passwd=infos["passwd"],
+                               db=infos["db"],
+                               cursorclass=pymysql.cursors.DictCursor)
+        
+        with connection.cursor() as cursor:
+            # Create a new record
+            sql = "INSERT INTO airiq (time, prediction) VALUES ('" + str(datetime.datetime.now()) + "','" + str(prediction)+"')"
+            
+            cursor.execute(sql)
+        connection.commit()
+    except:
+        print("ECHEC LORS DE L'ENREGISTREMENT DE LA PREDICTION DANS LA BASE SQL !")
+        return(False)
+    finally:
+        connection.close()
+    
     return(True)
- 
