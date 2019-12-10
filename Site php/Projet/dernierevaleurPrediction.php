@@ -15,7 +15,7 @@ try{
     $v1 = $row['prediction'];
     $v2 = $row['time'];
   }
-  echo '<p>A '.date("H", strtotime($v2)).'h'.date("i", strtotime($v2)).', la prédiction de qualité de l\'air pour demain est '.$v1.'</p>';
+  echo '<p>A '.date("H", strtotime($v2)).'h'.date("i", strtotime($v2)).', la prédiction de qualité de l\'air pour demain est '.round($v1,1).'</p>';
 }
 
 

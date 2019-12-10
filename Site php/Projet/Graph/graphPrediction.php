@@ -54,21 +54,15 @@ valueAxis.title.text = "Prédiction de la qualité de l'air";
 //Créer différentes courbes avec la fonction "series"
 let series = chart.series.push(new am4charts.LineSeries());
 series.dataFields.dateX = "time";
-series.dataFields.valueY = "TempBord";
-series.tooltipText = "Température au bord de la ruche: [bold]{valueY}[/]";
+series.dataFields.valueY = "prediction";
+series.tooltipText = "Indice de qualité de l'air: [bold]{valueY}[/]";
 series.fillOpacity = 0.3;
 
-let series2 = chart.series.push(new am4charts.LineSeries());
-series2.dataFields.dateX = "time";
-series2.dataFields.valueY = "TempInt";
-series2.tooltipText = "Température au centre de la ruche : [bold]{valueY}[/]";
-series2.fillOpacity = 0.3;
-
-let series3 = chart.series.push(new am4charts.LineSeries());
-series3.dataFields.dateX = "time";
-series3.dataFields.valueY = "TempExt";
-series3.tooltipText = "Température à l'extérieur de la ruche : [bold]{valueY}[/]";
-series3.fillOpacity = 0.3;
+//let series2 = chart.series.push(new am4charts.LineSeries());
+//series2.dataFields.dateX = "time";
+//series2.dataFields.valueY = "vraieValeur";
+//series2.tooltipText = "Température au centre de la ruche : [bold]{valueY}[/]";
+//series2.fillOpacity = 0.3;
 
 chart.cursor = new am4charts.XYCursor();
 chart.cursor.lineY.opacity = 0;
@@ -89,29 +83,17 @@ function generateChartData() {
   $bdd = connexion();
   try
     {
-      // Permet de définir quelle ruche prendre
-    if(isset($_GET["ruche"])){
-      $ruche = $_GET["ruche"];
-      $ruche = ($ruche <= 2)? ($ruche <= 0)? 1 : $ruche : 1;
-    }else {
-      $ruche = 1;
-    }
     // Récupération des données de la Ruche souhaitée dans la base de données
-    $sql_query="SELECT TempInt, TempExt, TempBord, time  FROM `RecuperationDonnees` WHERE NumRuche=".$ruche;    //Requête
+    $sql_query="SELECT * From airiq;";    //Requête
   $result_query = $bdd->query($sql_query);       // Exécution de la requête
 
   // On affiche les données pour vérification
   while($row = $result_query->fetch()){
-   $v1 = $row['TempBord'];
-   $v2 = $row['TempInt'];
+   $v1 = $row['prediction'];
+   //$v2 = $row['vraieValeur'];
    $v7 = $row['time'];
-   $v5 = $row['TempExt'];
 
-   echo "chartData.push({
-    time : \"$v7\",
-    TempInt : \"$v2\",
-    TempExt : \"$v5\",
-    TempBord : \"$v1\" });";
+   echo "chartData.push({time : \"$v7\", prediction : \"$v1\" });";
   }
 
     }catch (PDOException $e){

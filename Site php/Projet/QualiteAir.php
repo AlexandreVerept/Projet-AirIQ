@@ -10,7 +10,7 @@ require_once('includes/header.php'); ?>
 require_once('dernierevaleurPrediction.php');
 
 // Appel du graphique
-//require_once('Graph/graphPrediction.php');
+require_once('Graph/graphPrediction.php');
 
 // Appel de la page footer
 require_once('includes/footer.php'); ?>
