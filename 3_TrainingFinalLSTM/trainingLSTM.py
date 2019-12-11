@@ -8,7 +8,7 @@ from sklearn.utils import shuffle
 
 #=======================Parameters================================
 LOAD = True # load model or create one
-MODEL_TO_LOAD_NAME = 'modelProduction.h5'
+MODEL_TO_LOAD_NAME = 'offsetNormTrain.h5'
 PATH_TO_MODELS = "Models/"
 
 TRAIN = False # train the model or not
@@ -16,13 +16,13 @@ EPOCHS = 1
 
 features_considered = ['temperature','humidite','IQ','IQ_J+1']
 
-#CSV_PATH = "CreateDataset/datas/testingDataset.csv"
-CSV_PATH = "CreateDataset/datas/trainingDatasetOffset12.csv"
+CSV_PATH = "CreateDataset/datas/testingDataset.csv"
+#CSV_PATH = "CreateDataset/datas/trainingDatasetOffset12.csv"
 
 NB_MEASURES = 8
 SIZE_LSTM = 8
 
-RANDOM_SHUFFLE_SEED = 22
+RANDOM_SHUFFLE_SEED = 3
 #================================================================
 
 # Importer dataset et voir les features
@@ -168,3 +168,8 @@ else:
     print("Accuracy:", round(calc_accuracy(y_pred,y_train),2) ,"%")
     print("Mean error:", round(mean_error(y_pred,y_train),2))
     
+    dfpred = pd.DataFrame(y_pred)
+    dfpred.to_csv("graph1.csv", index=False,sep=';')
+    
+    dfpred = pd.DataFrame(y_train)
+    dfpred.to_csv("graph2.csv", index=False,sep=';')
