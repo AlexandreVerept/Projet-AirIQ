@@ -73,15 +73,17 @@ All the scripts of this part can be found in the *"2_SecondLSTM"* folder.
 
   <img src="2_SecondLSTM/Pictures/loss2.png" alt="r" style="zoom:70%;" /><img src="2_SecondLSTM/Pictures/accuracy.png" alt="r" style="zoom:70%;" />
 
-  <img src="2_SecondLSTM/Pictures/trainingdata.png" alt="r" style="zoom:100%;" />
+  *Please take note:* For the accuracy, we round our values and treat our problem as a classification one. That means that the accuracy score represent the part of time were the value we predict (rounded) is the exact same as the true value (which is only an integer between 1 and 10).
 
+  <img src="2_SecondLSTM/Pictures/trainingdata.png" alt="r" style="zoom:100%;" />
+  
   Considering we only use the temperature, humidity, and IQ of the previous day, ~70% of accuracy and ~0.5 of mean error was actually really satisfactory.
 
 ### Apply our new model to the beehive measures
 
 All the scripts of this part can be found in the *"3_TrainingFinalLSTM"* folder.
 
-- Now we **test the model we trained on open data to predict the IQ measures from the beehive**. This is the first result we had:
+- Now we **test the model we trained on open data to predict the IQ measures from the beehive**. This is the first result we had :
 
   <img src="3_TrainingFinalLSTM/Pictures/firstTest.png" alt="r" style="zoom:90%;" />
 
@@ -96,6 +98,25 @@ All the scripts of this part can be found in the *"3_TrainingFinalLSTM"* folder.
   <img src="3_TrainingFinalLSTM/Pictures/3.png" alt="r" style="zoom:90%;" /><img src="3_TrainingFinalLSTM/Pictures/4.png" alt="r" style="zoom:90%;" />
 
   - For humidity, apart from aberrant values on the right side, there is no real offset to be added in the training data.
+  
+- We trained our model again with those changes on the Meteo France dataset, and later we trained it a bit more the ISEN dataset, using a method close to k-fold and cross-validation (that we didn't knew of at the time) in a way to avoid the negative effect of the small dataset:
+
+  <img src="https://i.stack.imgur.com/FKKvG.png" alt="r" style="zoom:60%;" />
+
+  Each time we train on 5/6th of the data, and validate on 1/6th:
+
+  ```
+  RANDOM_SHUFFLE_SEED = 0
+  x_train,y_train = shuffle(x_train,y_train, random_state=RANDOM_SHUFFLE_SEED)
+  
+  split = int(len(y_train)*5/6)
+  
+  x_val = x_train[split:-1]
+  x_train = x_train[0:split]
+  
+  y_val = y_train[split:-1]
+  y_train = y_train[0:split]
+  ```
 
 ### Create the final product
 
