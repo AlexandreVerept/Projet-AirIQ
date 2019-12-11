@@ -79,7 +79,7 @@ All the scripts of this part can be found in the *"2_SecondLSTM"* folder.
   
   Considering we only use the temperature, humidity, and IQ of the previous day, ~70% of accuracy and ~0.5 of mean error was actually really satisfactory.
 
-### Apply our new model to the beehive measures
+### Applying our new model to the beehive measures
 
 All the scripts of this part can be found in the *"3_TrainingFinalLSTM"* folder.
 
