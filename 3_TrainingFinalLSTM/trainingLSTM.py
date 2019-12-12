@@ -8,11 +8,11 @@ from sklearn.utils import shuffle
 
 #=======================Parameters================================
 LOAD = True # load model or create one
-MODEL_TO_LOAD_NAME = 'offsetNormTrain.h5'
+MODEL_TO_LOAD_NAME = 'model1576156173.3579593.h5'
 PATH_TO_MODELS = "Models/"
 
 TRAIN = False # train the model or not
-EPOCHS = 1
+EPOCHS = 20
 
 features_considered = ['temperature','humidite','IQ','IQ_J+1']
 
@@ -22,7 +22,7 @@ CSV_PATH = "CreateDataset/datas/testingDataset.csv"
 NB_MEASURES = 8
 SIZE_LSTM = 8
 
-RANDOM_SHUFFLE_SEED = 3
+RANDOM_SHUFFLE_SEED = 20
 #================================================================
 
 # Importer dataset et voir les features

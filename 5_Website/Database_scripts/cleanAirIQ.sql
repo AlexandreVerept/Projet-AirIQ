@@ -1,0 +1,1 @@
+TRUNCATE iq_mel;

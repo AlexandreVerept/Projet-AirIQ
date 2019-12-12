@@ -85,9 +85,59 @@ def collectTheAirIQ():
         df.to_csv("datas/IQ24h.csv", index=False,sep=';')
     except:
         print("ECHEC LORS DU TRAITEMENT DES DONNEES DE L'API DE LA MEL !")
-        return(False)
+        return(False)        
+    try:
+        #try to update the database
+        addMelValuesToDatabase()
+    except:
+        print("ECHEC DE LA MAJ DE LA BASE DE DONNEE AVEC !")
     return(True)
     
+
+def addMelValuesToDatabase():
+    """
+    update the database if needeed with the index quality provided by the MEL
+    """
+    try:
+        # get the value in our CSV
+        dfMel = pd.read_csv("datas/IQ24h.csv", header=0, delimiter=';')
+    
+        dfMel['date'] = pd.to_datetime(dfMel['date'])
+        recent_date = dfMel.loc[dfMel['date'].idxmax()]
+    except:
+        print("ECHEC LORS DE L'OUVERTURE DU CSV !")
+        return(False)
+    
+    try:
+    #load information from the database
+        with open('db_informations.json') as json_file:
+            infos = json.load(json_file)
+                
+        connection=pymysql.connect(host=infos["host"],
+                               user=infos["user"],
+                               passwd=infos["passwd"],
+                               db=infos["db"],
+                               cursorclass=pymysql.cursors.DictCursor)
+        
+        with connection.cursor() as cursor:
+            # Create a new record
+            sql = "SELECT * From iq_mel WHERE time = (select MAX(time) from iq_mel)"
+            cursor.execute(sql)
+            result = cursor.fetchone()
+            connection.close()
+    except:
+        print("ECHEC LORS DE L'OUVERTURE DE LA BDD !")
+        return(False)
+    try:
+        #test if we need to update the database
+        if result==None or recent_date["date"]>result["time"]:
+            sql = "INSERT INTO iq_mel (valeur, time) VALUES ('" + str(recent_date['value']) + "','" + str(recent_date['date'])+"')"
+            insertDB(sql)
+    except:
+        print("ECHEC LORS DU REMPLISSAGE DE LA BDD !")
+        return(False)
+    return(True)
+            
     
 def mixIQandRuche():
     """
@@ -141,26 +191,33 @@ def savePrediction(prediction):
     @return: True si tout a bien fonctionné, False sinon
     """
     try:
-        #load information from the database
-        with open('db_informations.json') as json_file:
-            infos = json.load(json_file)
+        sql = "INSERT INTO airiq (time, prediction) VALUES ('" + str(datetime.datetime.now()) + "','" + str(prediction)+"')"
+        insertDB(sql)
+    except:
+        print("ECHEC LORS DE L'ENREGISTREMENT DE LA PREDICTION DANS LA BASE SQL !")
+        return(False)    
+    return(True)
+    
+
+    
+def insertDB(sql):
+    """
+    this function allow us to write in the data base with an INSERT
+    
+    sql: the sql command we want to use
+    """
+    #load information from the database
+    with open('db_informations.json') as json_file:
+        infos = json.load(json_file)
                 
-        connection=pymysql.connect(host=infos["host"],
+    connection=pymysql.connect(host=infos["host"],
                                user=infos["user"],
                                passwd=infos["passwd"],
                                db=infos["db"],
                                cursorclass=pymysql.cursors.DictCursor)
         
-        with connection.cursor() as cursor:
-            # Create a new record
-            sql = "INSERT INTO airiq (time, prediction) VALUES ('" + str(datetime.datetime.now()) + "','" + str(prediction)+"')"
-            
-            cursor.execute(sql)
-        connection.commit()
-    except:
-        print("ECHEC LORS DE L'ENREGISTREMENT DE LA PREDICTION DANS LA BASE SQL !")
-        return(False)
-    finally:
-        connection.close()
-    
-    return(True)
+    with connection.cursor() as cursor:
+        # Create a new record
+        cursor.execute(sql)
+    connection.commit()
+    connection.close()
