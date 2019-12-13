@@ -8,11 +8,11 @@ from sklearn.utils import shuffle
 
 #=======================Parameters================================
 LOAD = True # load model or create one
-MODEL_TO_LOAD_NAME = 'model1576156173.3579593.h5'
+MODEL_TO_LOAD_NAME = 'model1576225957.2100132.h5'
 PATH_TO_MODELS = "Models/"
 
 TRAIN = False # train the model or not
-EPOCHS = 20
+EPOCHS = 15
 
 features_considered = ['temperature','humidite','IQ','IQ_J+1']
 
@@ -22,7 +22,7 @@ CSV_PATH = "CreateDataset/datas/testingDataset.csv"
 NB_MEASURES = 8
 SIZE_LSTM = 8
 
-RANDOM_SHUFFLE_SEED = 20
+RANDOM_SHUFFLE_SEED = 15
 #================================================================
 
 # Importer dataset et voir les features
@@ -56,9 +56,21 @@ def createTraining(dataset,nb_measures,index_features_in):
     x_train,y_train = shuffle(x_train,y_train, random_state=RANDOM_SHUFFLE_SEED)
     return(x_train, y_train)
     
+def kFold(x,y,k):
+    """
+    create what we need for cross validation
+    """
+    foldSize = int(len(x)/k)
+    x_fold = []
+    y_fold = []
+    for i in range(k):
+        x_fold.append(x[i*foldSize:(1+i)*foldSize])
+        y_fold.append(y[i*foldSize:(1+i)*foldSize])
+    return(x_fold,y_fold)    
 
 # 1 jour = 96 mesures
 x_train,y_train = createTraining(dataset,NB_MEASURES,len(features_considered)-1)
+x_fold, y_fold = kFold(x_train,y_train,5)
 
 
 # Load the model or create it
@@ -74,22 +86,25 @@ else:
     model.add(tf.keras.layers.Dense(1,name="Dense_layer"))
     model.compile(optimizer=tf.train.RMSPropOptimizer(learning_rate=0.005), loss='mae')
     model.summary()
-
+    
 if TRAIN:
-    # Train  
-    #split pour validation
-    split = int(len(y_train)*5/6)
-
-    x_val = x_train[split:-1]
-    x_train = x_train[0:split]
-
-    y_val = y_train[split:-1]
-    y_train = y_train[0:split]
-
-    history = model.fit(x_train,
-                        y_train,
-                        epochs=EPOCHS,
-                        steps_per_epoch=len(x_train))
+    # Train
+    for i in range(len(x_fold)):
+        x = []
+        y = []
+        for j in range(len(x_fold)):
+            if i!=j:
+                if len(x)>0:
+                    x = np.concatenate([x,x_fold[j]],axis=0)
+                    y = np.concatenate([y,y_fold[j]],axis=0)
+                else:
+                    x=x_fold[j]
+                    y=y_fold[j]
+                
+        history = model.fit(x,
+                            y,
+                            epochs=EPOCHS,
+                            steps_per_epoch=len(x_train))
     
     if len(history.history['loss'])>1:
         # plot history
@@ -139,6 +154,7 @@ if TRAIN:
     print("Accuracy with training data:", round(calc_accuracy(y_pred_train,y_train),2) ,"%")
     print("Mean error with training data:", round(mean_error(y_pred_train,y_train),2))
 
+    """
     #plot predict
     y_pred_val = model.predict(x_val)
 
@@ -152,7 +168,7 @@ if TRAIN:
 
     print("Accuracy with validation data:", round(calc_accuracy(y_pred_val,y_val),2) ,"%")
     print("Mean error with validation data:", round(mean_error(y_pred_val,y_val),2))
-    
+    """
 else:
     #plot predict
     y_pred = model.predict(x_train)
