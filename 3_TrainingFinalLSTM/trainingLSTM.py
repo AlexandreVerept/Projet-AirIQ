@@ -8,21 +8,22 @@ from sklearn.utils import shuffle
 
 #=======================Parameters================================
 LOAD = True # load model or create one
-MODEL_TO_LOAD_NAME = 'model1576225957.2100132.h5'
+MODEL_TO_LOAD_NAME = 'kfold.h5'
 PATH_TO_MODELS = "Models/"
 
 TRAIN = False # train the model or not
-EPOCHS = 15
+EPOCHS = 1
 
 features_considered = ['temperature','humidite','IQ','IQ_J+1']
 
-CSV_PATH = "CreateDataset/datas/testingDataset.csv"
+CSV_PATH = "CreateDataset/datas/testingDataset12.csv"
 #CSV_PATH = "CreateDataset/datas/trainingDatasetOffset12.csv"
+#CSV_PATH = "CreateDataset/datas/testMix.csv"
 
 NB_MEASURES = 8
 SIZE_LSTM = 8
 
-RANDOM_SHUFFLE_SEED = 15
+RANDOM_SHUFFLE_SEED = 0
 #================================================================
 
 # Importer dataset et voir les features
@@ -70,7 +71,7 @@ def kFold(x,y,k):
 
 # 1 jour = 96 mesures
 x_train,y_train = createTraining(dataset,NB_MEASURES,len(features_considered)-1)
-x_fold, y_fold = kFold(x_train,y_train,5)
+x_fold, y_fold = kFold(x_train,y_train,6)
 
 
 # Load the model or create it

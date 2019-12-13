@@ -99,27 +99,50 @@ All the scripts of this part can be found in the *"3_TrainingFinalLSTM"* folder.
 
   - For humidity, apart from aberrant values on the right side, there is no real offset to be added in the training data.
   
-- We trained our model again with those changes on the Meteo France dataset, and later we trained it a bit more the ISEN dataset, using a method close to k-fold and cross-validation (that we didn't knew of at the time) in a way to avoid the negative effect of the small dataset:
+- We trained our model again with those changes on the Meteo France dataset, and later we trained it a bit more the ISEN dataset. The results were better, but not satisfying yet.
+
+- Later we discovered the k-fold and cross-validation, and used it in a way to reduce the negative effect of the small dataset:
 
   <img src="https://i.stack.imgur.com/FKKvG.png" alt="r" style="zoom:60%;" />
 
   Each time we train on 5/6th of the data, and validate on 1/6th:
 
   ```
-  RANDOM_SHUFFLE_SEED = 0
-  x_train,y_train = shuffle(x_train,y_train, random_state=RANDOM_SHUFFLE_SEED)
-  
-  split = int(len(y_train)*5/6)
-  
-  x_val = x_train[split:-1]
-  x_train = x_train[0:split]
-  
-  y_val = y_train[split:-1]
-  y_train = y_train[0:split]
+  def kFold(x,y,k):
+      foldSize = int(len(x)/k)
+      x_fold = []
+      y_fold = []
+      for i in range(k):
+          x_fold.append(x[i*foldSize:(1+i)*foldSize])
+          y_fold.append(y[i*foldSize:(1+i)*foldSize])
+      return(x_fold,y_fold)    
   ```
+  
+  This produces better results. We trained our model on the Meteo France dataset using cross-validation, and here are one result of validation on the ISEN data:
+  
+  <img src="Suivi_de_projet/Pictures/Accuracy_kfold.png" alt="r" style="zoom:90%;" />
 
 ### Create the final product
 
-All the scripts of this part can be found in the *"4_Production"* folder.
+All the scripts of this part can be found in the *"4_Production"* and *"5_Website"* folder.
 
-- Coming soon
+- Now was the time to create the real time application: **a website page on which we can see the prediction of the air index quality for the next day**. Here is the result !
+
+  - *Please take note that we only added the "QualiteAir" page to an already existing student project*
+
+    <img src="5_Website/Pictures/emptySite.png" alt="r" style="zoom:75%;" />
+
+- In order to get this result, we **created a script called regularly** to download data from the last 24hours on the MEL API and the SQL ISEN database, aggregate the data and then make the prediction for the next day. We also pushed our results in the ISEN database.
+
+- **One major problem appeared here:** our model is train to output the IQ based on 24h of data from 0:00 to 23:59 each day.
+
+  However it is useless to have the IQ for the day at midnight each day ! So **we decided to base our prediction on data from 12:00 the previous day to 12:00 of the current day**. We trained our model accordingly, and without surprise, the accuracy dropped a bit. Here is our final model on the ISEN data:
+
+  <img src="3_TrainingFinalLSTM/Pictures/Lastmodel.png" alt="r" style="zoom:90%;" />
+
+  - Accuracy: ~82%
+  - Mean error: ~0.3
+
+  We tried not to overfeed, by keeping good results on the MEL data (~60% accuracy)
+
+  
