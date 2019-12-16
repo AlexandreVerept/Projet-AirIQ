@@ -138,7 +138,7 @@ All the scripts of this part can be found in the *"4_Production"* and *"5_Websit
 
   However it is useless to have the IQ for the day at midnight each day ! So **we decided to base our prediction on data from 12:00 the previous day to 12:00 of the current day**. We trained our model accordingly, and without surprise, the accuracy dropped a bit. Here is our final model on the ISEN data:
 
-  <img src="3_TrainingFinalLSTM/Pictures/Lastmodel.png" alt="r" style="zoom:90%;" />
+<img src="https://github.com/AlexandreVerept/Projet-AirIQ/blob/master/3_TrainingFinalLSTM/Pictures/lastModel.png" alt="r" style="zoom:90%;" />
 
   - Accuracy: ~82%
   - Mean error: ~0.3
