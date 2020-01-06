@@ -2,7 +2,11 @@
 
 This is a first year of master research project done by **Mohamed Boulanouar**, **Maxime Thoor** and **Alexandre Verept**, supervised by **Kévin Hérissé** (PhD student) at [**ISEN**](https://www.isen-lille.fr/) engineering school.
 
-You can find the [**presentation video here**](https://www.youtube.com/watch?v=_JEZt1qc7FI&feature=youtu.be)
+You can find the [**presentation video here:**](https://www.youtube.com/watch?v=_JEZt1qc7FI&feature=youtu.be)
+
+[<img src="Suivi_de_projet/Pictures/video.png" alt="r" style="zoom:50%;" />](https://www.youtube.com/watch?v=_JEZt1qc7FI&feature=youtu.be)
+
+(This video's goal is to present what kind of project we can do in an engineering school to future students)
 
 ## Introduction
 
@@ -124,11 +128,11 @@ All the scripts of this part can be found in the *"3_TrainingFinalLSTM"* folder.
   
   <img src="Suivi_de_projet/Pictures/Accuracy_kfold.png" alt="r" style="zoom:90%;" />
 
-### Create the final product
+### Create a website
 
 All the scripts of this part can be found in the *"4_Production"* and *"5_Website"* folder.
 
-- Now was the time to create the real time application: **a website page on which we can see the prediction of the air index quality for the next day**. [Here is the result](https://devisen.fr/HairIQ/Projet/QualiteAir.php) !
+- Now was the time to create the real time application: **a website page on which we can see the prediction of the air index quality for the next day**. [Here is the result](https://devisen.fr/HairIQ/Projet/QualiteAir.php) ! *(Update: the website is no longer available)*
 
   - *Please take note that we only added the "QualiteAir" page to an already existing student project*
 
@@ -140,11 +144,18 @@ All the scripts of this part can be found in the *"4_Production"* and *"5_Websit
 
   However it is useless to have the IQ for the day at midnight each day ! So **we decided to base our prediction on data from 12:00 the previous day to 12:00 of the current day**. We trained our model accordingly, and without surprise, the accuracy dropped a bit. Here is our final model on the ISEN data:
 
-<img src="https://github.com/AlexandreVerept/Projet-AirIQ/blob/master/3_TrainingFinalLSTM/Pictures/lastModel.png" alt="r" style="zoom:90%;" />
+<img src="3_TrainingFinalLSTM/Pictures/lastModel.png" alt="r" style="zoom:90%;" />
 
   - Accuracy: ~82%
   - Mean error: ~0.3
 
   We tried not to overfeed, by keeping good results on the MEL data (~60% accuracy)
 
-  
+### The final product
+
+Unfortunately, our website will not be put online on the school server, but it works fine on a local one. However we learned a lot during this 5 weeks work, and we hope we could continue this project with the MEL as a 2nd semester project as we had a meeting with them to talk about our project, and they were interested in the idea. 
+
+In order to prepare this interview, we also made a presentation [poster](https://github.com/AlexandreVerept/Projet-AirIQ/blob/master/Suivi_de_projet/Poster_AirIQ.pdf):
+
+[<img src="Suivi_de_projet/Pictures/poster.jpg" alt="r" style="zoom:30%;" />](https://github.com/AlexandreVerept/Projet-AirIQ/blob/master/Suivi_de_projet/Poster_AirIQ.pdf)
+
