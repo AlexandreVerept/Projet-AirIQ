@@ -2,6 +2,8 @@
 
 This is a first year of master research project done by **Mohamed Boulanouar**, **Maxime Thoor** and **Alexandre Verept**, supervised by **Kévin Hérissé** (PhD student) at [**ISEN**](https://www.isen-lille.fr/) engineering school.
 
+You can find the [**presentation video here**](https://www.youtube.com/watch?v=_JEZt1qc7FI&feature=youtu.be)
+
 ## Introduction
 
 - The goal is to **create a predictive model of the air index quality in the city of Lille**, based on sensor placed on a beehive on the roof of the school, in order to **predict this index on a small scale.** Indeed, it's already possible to find precise predictions everywhere bases on complex model and simulations.
