@@ -53,8 +53,8 @@ def launch(function):
 if __name__ == '__main__':
     # Appelle la fonction call script qui va appeler le script python tous les jours
     
-    #schedule.every().day.at('11:06').do(call_script)
-    schedule.every(1).minutes.do(call_script)
+    schedule.every().day.at('12:00').do(call_script)
+    #schedule.every(1).minutes.do(call_script)
 
     # Boucle infinie afin de pouvoir appeler la fonction au moment predefini 
     while True:

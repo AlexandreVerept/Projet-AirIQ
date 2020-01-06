@@ -8,7 +8,7 @@ from sklearn.utils import shuffle
 
 #=======================Parameters================================
 LOAD = True # load model or create one
-MODEL_TO_LOAD_NAME = 'kfold.h5'
+MODEL_TO_LOAD_NAME = 'model1576748233.5927076.h5'
 PATH_TO_MODELS = "Models/"
 
 TRAIN = False # train the model or not
@@ -16,8 +16,8 @@ EPOCHS = 1
 
 features_considered = ['temperature','humidite','IQ','IQ_J+1']
 
-CSV_PATH = "CreateDataset/datas/testingDataset12.csv"
-#CSV_PATH = "CreateDataset/datas/trainingDatasetOffset12.csv"
+#CSV_PATH = "CreateDataset/datas/testingDataset12.csv"
+CSV_PATH = "CreateDataset/datas/trainingDatasetOffset12.csv"
 #CSV_PATH = "CreateDataset/datas/testMix.csv"
 
 NB_MEASURES = 8

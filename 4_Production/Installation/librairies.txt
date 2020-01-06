@@ -11,3 +11,16 @@ keras - 2.2.4
 pymysql - 0.9.3
 urllib3 - 1.24.2
 json5 - 0.8.5
+
+
+installer avec pip:
+
+pip install ‘schedule =0.6.0’
+pip install ‘tensorflow =1.14.0’
+pip install ‘matplotlib =3.1.1’
+pip install ‘numpy =1.17.3’
+pip install ‘pandas =0.25.2’
+pip install ‘keras =2.2.4’
+pip install ‘pymysql =0.9.3’
+pip install ‘urllib3 =1.24.2’
+pip install ‘json5 =0.8.5’
