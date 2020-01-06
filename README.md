@@ -4,7 +4,7 @@ This is a first year of master research project done by **Mohamed Boulanouar**, 
 
 You can find the [**presentation video here:**](https://www.youtube.com/watch?v=_JEZt1qc7FI&feature=youtu.be)
 
-[<img src="Suivi_de_projet/Pictures/video.png" alt="r" style="zoom:50%;" />](https://www.youtube.com/watch?v=_JEZt1qc7FI&feature=youtu.be)
+[<img src="Suivi_de_projet/Pictures/video.PNG" alt="r" style="zoom:50%;" />](https://www.youtube.com/watch?v=_JEZt1qc7FI&feature=youtu.be)
 
 (This video's goal is to present what kind of project we can do in an engineering school to future students)
 
