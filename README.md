@@ -12,7 +12,7 @@ You can find the [**presentation video here:**](https://www.youtube.com/watch?v=
 
 - The goal is to **create a predictive model of the air index quality in the city of Lille**, based on sensor placed on a beehive on the roof of the school, in order to **predict this index on a small scale.** Indeed, it's already possible to find precise predictions everywhere bases on complex model and simulations.
 
-  You can fin an example of those predictions [here](http://airindex.eea.europa.eu/).
+  You can find an example of those predictions [here](http://airindex.eea.europa.eu/).
 
   By the way, the air quality is an index published everyday in the range 1 to 10, with 1 being the purest air possible, and 10 a dangerous level of pollution. 
 
