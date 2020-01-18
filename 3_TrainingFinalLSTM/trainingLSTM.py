@@ -184,9 +184,3 @@ else:
 
     print("Accuracy:", round(calc_accuracy(y_pred,y_train),2) ,"%")
     print("Mean error:", round(mean_error(y_pred,y_train),2))
-    
-    dfpred = pd.DataFrame(y_pred)
-    dfpred.to_csv("graph1.csv", index=False,sep=';')
-    
-    dfpred = pd.DataFrame(y_train)
-    dfpred.to_csv("graph2.csv", index=False,sep=';')

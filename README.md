@@ -132,11 +132,11 @@ All the scripts of this part can be found in the *"3_TrainingFinalLSTM"* folder.
 
 All the scripts of this part can be found in the *"4_Production"* and *"5_Website"* folder.
 
-- Now was the time to create the real time application: **a website page on which we can see the prediction of the air index quality for the next day**. [Here is the result](https://devisen.fr/HairIQ/Projet/QualiteAir.php) ! *(Update: the website is no longer available)*
+- Now was the time to create the real time application: **a website page on which we can see the prediction of the air index quality for the next day**. [Here is the result](https://devisen.fr/HairIQ/Projet/QualiteAir.php) ! *(Note: the website could be no longer available)*
 
   - *Please take note that we only added the "QualiteAir" page to an already existing student project*
 
-    <img src="5_Website/Pictures/emptySite.png" alt="r" style="zoom:75%;" />
+    [<img src="5_Website/Pictures/emptySite.png" alt="r" style="zoom:75%;" />](https://devisen.fr/HairIQ/Projet/QualiteAir.php)
 
 - In order to get this result, we **created a script called regularly** to download data from the last 24hours on the MEL API and the SQL ISEN database, aggregate the data and then make the prediction for the next day. We also pushed our results in the ISEN database.
 
@@ -158,4 +158,12 @@ Unfortunately, our website will not be put online on the school server, but it w
 In order to prepare this interview, we also made a presentation [poster](https://github.com/AlexandreVerept/Projet-AirIQ/blob/master/Suivi_de_projet/Poster_AirIQ.pdf):
 
 [<img src="Suivi_de_projet/Pictures/poster.jpg" alt="r" style="zoom:30%;" />](https://github.com/AlexandreVerept/Projet-AirIQ/blob/master/Suivi_de_projet/Poster_AirIQ.pdf)
+
+**Update:** We were invited to talk about our project in a public conference about prediction of the air quality in Lille and the surrounding cities !
+
+[<img src="Suivi_de_projet/Pictures/JN.PNG" alt="r" style="zoom:80%;" />](https://www.weezevent.com/jeudis-du-numerique-10-qualite-de-l-air)
+
+
+
+
 
