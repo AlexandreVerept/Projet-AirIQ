@@ -161,7 +161,7 @@ In order to prepare this interview, we also made a presentation [poster](https:/
 
 **Update:** We were invited to talk about our project in a public conference about prediction of the air quality in Lille and the surrounding cities !
 
-[<img src="Suivi_de_projet/Pictures/JN.PNG" alt="r" style="zoom:80%;" />](https://www.weezevent.com/jeudis-du-numerique-10-qualite-de-l-air)
+[<img src="Suivi_de_projet/Pictures/JN.PNG" alt="r" style="zoom:80%;" />](https://www.weezevent.com/jeudis-du-numerique-10-qualite-de-l-air) <img src="Suivi_de_projet/Pictures/JDN.JPG" alt="r" style="zoom:60%;" />
 
 
 
